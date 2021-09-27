@@ -1,0 +1,108 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+  <form action="" method="GET">
+
+    <div class="input-group mb-3">
+      <input type="text" required name="keywords" class="form-control" {% if data %} value="{{keyword}}" {% endif %} placeholder="Search Document" />
+      <button class="btn btn-outline-info" type="submit" id="button-addon2">
+        Search
+      </button>
+    </div>
+    <div class="row justify-content-between">
+    <div class="col-auto">
+      {% if rtime %}
+        <p class="text-muted">{{rtime}}</p>
+      {% endif %}
+    </div>
+      <div class="row col-auto">
+        <div class="col-auto"> 
+        <label class="col-form-label" for="inputGroupSelect01">Jumlah Document</label>
+        </div>
+        <div class="col-auto "> 
+          <select name="jumlah" {% if data %} onchange="changeData('/?keywords={{keyword}}&page={{data.number}}&jumlah=',this.value)" {% endif %} class="form-select" id="inputGroupSelect01">
+            <option selected value="50" >50</option>
+            <option {% if jumlah == "100" %} selected {% endif %}  value="100"  >100</option>
+            <option {% if jumlah == "150" %} selected {% endif %}  value="150" >150</option>
+            <option {% if jumlah == "200" %} selected {% endif %}  value="200" >200</option>
+            <option {% if jumlah == "0-50" %} selected {% endif %}  value="0-50"  >0-50</option>
+            <option {% if jumlah == "50-100" %} selected {% endif %}  value="50-100" >50-100</option>
+            <option {% if jumlah == "100-150" %} selected {% endif %}  value="100-150" >100-150</option>
+            <option {% if jumlah == "150-200" %} selected {% endif %}  value="100-150" >150-200</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  {% if data %}
+    {% for doc in data %}
+        <div class="card p-2 m-4">
+          <div class="card-body">
+            <h4 class="card-title"><a href="{% url 'search:detail' doc.doc_name %}">{{ doc.doc_name }}</a></h4>
+            <p class="card-text doc-snipet">{{ doc.res }}</p>
+          </div>
+        </div>
+    {% endfor %}
+    <div class="row my-3 mr-3 justify-content-between">
+          <div class="col-auto ml-4">
+            <a href="{% url 'search:quintuple' %}?keyword={{keyword}}" class="btn btn-primary">Lihat Quintuple</a>
+          </div>
+        <div class="col-auto">
+          <ul class="pagination">
+          {% if data.paginator.num_pages != 1 %}
+            {% if data.has_previous %}
+              <li class="page-item">
+                <a href="{% url 'search:index' %}?keywords={{keyword}}&page=1&jumlah={{jumlah}}" class="page-link">First Page</a>
+              </li>
+            {% endif %}
+              <li class="page-item {% if not data.has_previous %} active {% endif %} ">
+                <a class="page-link "  href="{% url 'search:index' %}?keywords={{keyword}}&page={% if not data.has_previous %}{{data.number}}{% elif not data.has_next %}{{data.previous_page_number|add:"-1"}}{% else %}{{data.previous_page_number}}{% endif %}&jumlah={{jumlah}}">
+                  {% if not data.has_previous %} 
+                      {{data.number}} 
+                  {% elif not data.has_next %} 
+                      {{data.previous_page_number|add:"-1"}} 
+                  {% else %}
+                      {{data.previous_page_number}}
+                  {% endif %}
+                </a>
+              </li>
+              <li class="page-item {% if data.has_previous and data.has_next %}active{% endif %} ">
+                <a class="page-link "  href="{% url 'search:index' %}?keywords={{keyword}}&page={% if data.has_previous and data.has_next %}{{data.number}}{% elif not data.has_previous %}{{data.next_page_number}}{% else %}{{data.previous_page_number}}{% endif %}&jumlah={{jumlah}}">
+                  {% if data.has_previous and data.has_next %} 
+                    {{data.number}} 
+                  {% elif not data.has_previous %} 
+                    {{data.next_page_number}} 
+                  {% else %} 
+                    {{data.previous_page_number}} 
+                  {% endif %}
+                </a>
+              </li>
+             <li class="page-item {% if not data.has_next %} active {% endif %} ">
+              <a class="page-link "  href="{% url 'search:index' %}?keywords={{keyword}}&page={% if not data.has_next %}{{data.number}}{% elif not data.has_previous %}{{data.next_page_number|add:"1"}}{% else %}{{data.next_page_number}}{% endif %}&jumlah={{jumlah}}">
+                {% if not data.has_next %} 
+                    {{data.number}} 
+                {% elif not data.has_previous %} 
+                    {{data.next_page_number|add:"1"}} 
+                {% else %}
+                    {{data.next_page_number}}
+                {% endif %}
+              </a>
+            </li>
+            {% if data.has_next %}
+              <li class="page-item">
+                <a href="{% url 'search:index' %}?keywords={{keyword}}&page={{data.paginator.num_pages}}&jumlah={{jumlah}}" class="page-link">Last Page</a>
+              </li>
+            {% endif %}
+          </ul>
+          {% endif %}
+        </div>
+    </div>
+     
+  {% elif error %}
+    <div class="alert alert-danger" role="alert">
+    {{ error }}
+    </div>
+  {% endif %} 
+
+{% endblock %}
