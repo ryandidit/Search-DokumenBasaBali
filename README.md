@@ -26,6 +26,13 @@ Untuk data yang digunakan untuk dilakukan pencaharian menggunakan dokumen teks b
     <td><img src=https://github.com/ryandidit/Search-DokumenBasaBali/assets/65303453/85bd4cda-3985-4e6f-8156-c6eb6f5ccc6f></td>
     <td><img src=https://github.com/ryandidit/Search-DokumenBasaBali/assets/65303453/32c62127-b5bf-4549-ab79-b77de0ef1fc8></td>
   </tr>
+  <tr>
+    <td><img src=https://github.com/ryandidit/Search-DokumenBasaBali/assets/65303453/9efb2a53-d390-4d43-810d-242273d12b09></td>
+    <td><img src=https://github.com/ryandidit/Search-DokumenBasaBali/assets/65303453/d80c4139-fbd2-4cb4-b16d-63d27a481fc6></td>
+    <td><img src=https://github.com/ryandidit/Search-DokumenBasaBali/assets/65303453/0d2198af-2e13-4dc4-9077-dc93fe0c1ef2></td>
+    <td><img src=https://github.com/ryandidit/Search-DokumenBasaBali/assets/65303453/ac3e1562-4997-4901-9d17-23d39cc12087></td>
+    <td><img src=https://github.com/ryandidit/Search-DokumenBasaBali/assets/65303453/f7dc9f8e-7af6-458f-8990-f283232066de></td>
+  </tr>
 </table>
 
 
