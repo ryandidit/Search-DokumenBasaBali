@@ -1,0 +1,12 @@
+.doc-snipet {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  padding-top: 15px;
+}
+
